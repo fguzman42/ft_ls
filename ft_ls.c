@@ -52,9 +52,25 @@ void    a_flag()
 
 
 
+
+
 void    big_r_flag()
 {
+    DIR *dir;
+    struct dirent *sd;
+    t_dir   *content;
+    t_list  *head;
+    t_list  *list;
     
+    dir = opendir(".");
+    head = list;
+    while ((sd = readdir(dir)) != NULL)
+    {
+        list->dir->name = ft_strdup(sd->d_name);
+        list = list->next;
+    }
+    head = NULL;
+    closedir(dir);
 }
 
 
