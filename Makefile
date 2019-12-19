@@ -14,7 +14,7 @@ OBJS := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 CC := gcc
 
-CFLAGS := -Wall -Werror -Wextra -c
+CFLAGS := -Wall -Werror -Wextra -c -g
 
 .PHONY: all clean fclean re
 .SUFFIXES: .c .o

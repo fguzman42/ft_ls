@@ -60,10 +60,12 @@ in order to interpret the information returned by stat!
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "./libft/libft.h"
+# define L_FLAG 0x1
+# define A_FLAG 0x2
 
 typedef struct s_sys
 {
-    
+
 }              t_sys;
 
 

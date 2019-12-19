@@ -13,7 +13,7 @@
 #include "./ft_ls.h"
 #include <stdio.h>
 
-void    a_flag(char *directory)
+void    no_flag(char *directory)
 {
     DIR *dir;
     struct dirent *sd;
@@ -33,29 +33,45 @@ void    a_flag(char *directory)
     closedir(dir);
 }
 
-void    get_flag(char *argv, char *directory)
-{
 
-    if (ft_strcmp(argv, "-a") == 0)
-        a_flag(directory);
+void    a_flag()
+{
+    DIR *dir;
+    struct dirent *sd;
+
+    dir = opendir(".");
+    if (dir == NULL)
+        ft_puterror("bad file man!", 1);
+    while ((sd = readdir(dir)) != NULL)
+    {
+        ft_putstr(sd->d_name);
+        write(1, "\n", 1);
+    }
+    closedir(dir);
+}
+
+
+
+void    big_r_flag()
+{
+    
+}
+
+
+
+void    get_flag(char *argv)
+{
+//  if (ft_strcmp(argv, "-a") == 0)
+//      a_flag();
+    if (ft_strcmp(argv, "-R") == 0)
+        big_r_flag();
 }
 
 
 int main(int argc, char **argv)
 {
-    DIR *dir;
-    char *d;
-    char p[50];
-
-    p[0] = argv[argc - 1][0];
-    d = NULL;
-    dir = opendir(argv[argc - 1]);
-    if (dir == NULL && (ft_strcmp(p, "-") == 0))
-        ft_puterror("ft_ls: -a: no such file or directory", 0);
-    else if (dir != NULL)
-        d = ft_strdup(argv[argc - 1]);
-    get_flag(argv[1], d);
-    closedir(dir);
+    if (argc == 2)
+        get_flag(argv[1]);
     return (0);
 }
 
