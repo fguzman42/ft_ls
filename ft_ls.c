@@ -51,6 +51,21 @@ void    a_flag()
 }
 
 
+/*
+this is my prototype for my recursive function for -R
+
+    -R()
+    {
+        sort and print(list)
+        {
+            return (list of directories)
+        }
+        if (directories)
+            -R
+    }
+
+*/
+
 void   sort_data(t_c_list *head)
 {
     t_c_list *elem;
@@ -66,17 +81,12 @@ void   sort_data(t_c_list *head)
         {
             if (elem->dir->name[0] == elem->next->dir->name[0])
                 {
-                    if (ft_strlen(elem->dir->name) > ft_strlen(elem->next->dir->name))
+                    if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
                     {
                         tmp = elem->dir->name;
                         elem->dir->name = elem->next->dir->name;
                         elem->next->dir->name = tmp;
-                    }
-                    else if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
-                    {
-                        tmp = elem->dir->name;
-                        elem->dir->name = elem->next->dir->name;
-                        elem->next->dir->name = tmp; 
+						elem = head;
                     }
                 }
             else if (elem->dir->name[0] > elem->next->dir->name[0])
@@ -84,13 +94,21 @@ void   sort_data(t_c_list *head)
                 tmp = elem->dir->name;
                 elem->dir->name = elem->next->dir->name;
                 elem->next->dir->name = tmp;
+				elem = head;
             }
         }
-        printf("directory ./%s\n", elem->dir->name);
         elem = elem->next;
         i++;
     }
-
+       while (head->next != NULL)
+    {
+        printf("%s\n", head->dir->name);
+        free(head->dir->name);
+        free(head->dir);
+        free(head);
+        head = head->next;
+    }
+    free(head);
 }
 
 
