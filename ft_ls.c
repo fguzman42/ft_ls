@@ -51,25 +51,88 @@ void    a_flag()
 }
 
 
+void   sort_data(t_c_list *head)
+{
+    t_c_list *elem;
+    char *tmp;
+    int i;
 
+    i = 0;
+    elem = head;
+    tmp = NULL;
+    while (elem->next != NULL)
+    {
+        if (elem->next->dir != NULL)
+        {
+            if (elem->dir->name[0] == elem->next->dir->name[0])
+                {
+                    if (ft_strlen(elem->dir->name) > ft_strlen(elem->next->dir->name))
+                    {
+                        tmp = elem->dir->name;
+                        elem->dir->name = elem->next->dir->name;
+                        elem->next->dir->name = tmp;
+                    }
+                    else if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
+                    {
+                        tmp = elem->dir->name;
+                        elem->dir->name = elem->next->dir->name;
+                        elem->next->dir->name = tmp; 
+                    }
+                }
+            else if (elem->dir->name[0] > elem->next->dir->name[0])
+            {
+                tmp = elem->dir->name;
+                elem->dir->name = elem->next->dir->name;
+                elem->next->dir->name = tmp;
+            }
+        }
+        printf("directory ./%s\n", elem->dir->name);
+        elem = elem->next;
+        i++;
+    }
+
+}
 
 
 void    big_r_flag()
 {
     DIR *dir;
     struct dirent *sd;
-    t_dir   *content;
-    t_list  *head;
-    t_list  *list;
+    t_c_list  *head;
+    t_c_list  *c_list;
     
     dir = opendir(".");
-    head = list;
+    c_list = malloc(sizeof(t_c_list *));
+    head = c_list;
     while ((sd = readdir(dir)) != NULL)
     {
-        list->dir->name = ft_strdup(sd->d_name);
-        list = list->next;
+        if (sd->d_name[0] != '.')
+        {
+            c_list->dir = malloc(sizeof(t_dir));
+            c_list->dir->name = ft_strdup(sd->d_name);
+            c_list->next = malloc(sizeof(t_c_list *)); 
+            c_list = c_list->next;
+        }
     }
-    head = NULL;
+    c_list = NULL;
+    sort_data(head);
+
+
+
+/*
+    //this while loop iterates through the linked list and displays its contents
+    //used for reference.
+    printf("this is the unsorted below\n\n");
+    while (head->next != NULL)
+    {
+        printf("directory ./%s\n", head->dir->name);
+        free(head->dir->name);
+        free(head->dir);
+        free(head);
+        head = head->next;
+    }
+    free(head);
+*/
     closedir(dir);
 }
 
@@ -77,8 +140,6 @@ void    big_r_flag()
 
 void    get_flag(char *argv)
 {
-//  if (ft_strcmp(argv, "-a") == 0)
-//      a_flag();
     if (ft_strcmp(argv, "-R") == 0)
         big_r_flag();
 }

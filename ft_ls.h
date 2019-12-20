@@ -66,11 +66,6 @@ in order to interpret the information returned by stat!
 # define r_FLAG 0x8
 // define the rest of the flags
 
-typedef struct s_list
-{
-    t_dir  *dir;
-    t_list *next;
-}              t_list;
 
 typedef struct s_dir
 {
@@ -78,14 +73,16 @@ typedef struct s_dir
     char    *name;
 }              t_dir;
 
-
+typedef struct s_c_list
+{
+    t_dir  *dir;
+    struct s_c_list *next;
+}              t_c_list;
 
 typedef struct s_sys
 {
     DIR      *dir;
 
 }              t_sys;
-
-
 
 #endif
