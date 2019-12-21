@@ -77,29 +77,22 @@ void   sort_data(t_c_list *head)
     tmp = NULL;
     while (elem->next != NULL)
     {
+        printf("%d = %s\n", i, elem->dir->name);
         if (elem->next->dir != NULL)
         {
-            if (elem->dir->name[0] == elem->next->dir->name[0])
-                {
-                    if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
-                    {
-                        tmp = elem->dir->name;
-                        elem->dir->name = elem->next->dir->name;
-                        elem->next->dir->name = tmp;
-						elem = head;
-                    }
-                }
-            else if (elem->dir->name[0] > elem->next->dir->name[0])
+            if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
             {
                 tmp = elem->dir->name;
                 elem->dir->name = elem->next->dir->name;
                 elem->next->dir->name = tmp;
 				elem = head;
+                printf("hello %s\n", elem->dir->name);
             }
         }
         elem = elem->next;
         i++;
     }
+
        while (head->next != NULL)
     {
         printf("%s\n", head->dir->name);
@@ -109,6 +102,7 @@ void   sort_data(t_c_list *head)
         head = head->next;
     }
     free(head);
+    
 }
 
 
@@ -130,6 +124,7 @@ void    big_r_flag()
             c_list->dir->name = ft_strdup(sd->d_name);
             c_list->next = malloc(sizeof(t_c_list *)); 
             c_list = c_list->next;
+            c_list->dir = NULL;
         }
     }
     c_list = NULL;

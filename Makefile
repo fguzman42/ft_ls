@@ -22,7 +22,7 @@ CFLAGS := -Wall -Werror -Wextra -c -g
 all: $(NAME)
 
 $(NAME): OBJS
-		$(CC) $(OBJS) -o $(NAME) $(HEADER) -L $(LIBFTDIR) -lft
+		$(CC) $(OBJS) -o $(NAME) $(HEADER) -L $(LIBFTDIR) -lft -fsanitize=address
 
 OBJS: LIB
 		mkdir $(OBJDIR)
