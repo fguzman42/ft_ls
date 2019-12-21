@@ -80,19 +80,39 @@ void   sort_data(t_c_list *head)
         printf("%d = %s\n", i, elem->dir->name);
         if (elem->next->dir != NULL)
         {
+<<<<<<< HEAD
             if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
+=======
+            if (elem->dir->name[0] == elem->next->dir->name[0])
+                {
+                    if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
+                    {
+                        tmp = elem->dir->name;
+                        elem->dir->name = elem->next->dir->name;
+                        elem->next->dir->name = tmp;
+						elem = head;
+                    }
+                }
+            else if (elem->dir->name[0] > elem->next->dir->name[0])
+>>>>>>> 3f2a239517f7ec6d74dd7a3285063c25f81afc06
             {
                 tmp = elem->dir->name;
                 elem->dir->name = elem->next->dir->name;
                 elem->next->dir->name = tmp;
 				elem = head;
+<<<<<<< HEAD
                 printf("hello %s\n", elem->dir->name);
+=======
+>>>>>>> 3f2a239517f7ec6d74dd7a3285063c25f81afc06
             }
         }
         elem = elem->next;
         i++;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3f2a239517f7ec6d74dd7a3285063c25f81afc06
        while (head->next != NULL)
     {
         printf("%s\n", head->dir->name);
@@ -102,7 +122,10 @@ void   sort_data(t_c_list *head)
         head = head->next;
     }
     free(head);
+<<<<<<< HEAD
     
+=======
+>>>>>>> 3f2a239517f7ec6d74dd7a3285063c25f81afc06
 }
 
 
