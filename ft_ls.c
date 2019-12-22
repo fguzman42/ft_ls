@@ -51,6 +51,59 @@ void    a_flag()
 }
 
 
+
+/*void   sort_data(t_c_list *head)
+{
+    t_c_list *elem;
+    char *tmp;
+    int i;
+
+    i = 0;
+    elem = head;
+    tmp = NULL;
+    while (elem->next != NULL)
+    {
+        if (elem->next->dir != NULL)
+        {
+            if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
+            {
+                tmp = elem->dir->name;
+                elem->dir->name = elem->next->dir->name;
+                elem->next->dir->name = tmp;
+				elem = head;
+            }
+        }
+        elem = elem->next;
+        i++;
+    }
+}*/
+void    push(t_c_list **head_ref, char *str, int type)
+{
+    t_c_list    *new;
+
+    new = (t_c_list *)malloc(sizeof(t_c_list));
+    new->dir = (t_dir *)malloc(sizeof(t_dir));
+    new->dir->name = ft_strdup(str);
+    if (type == 16877)
+        new->dir->type = 'a';
+    else
+        new->dir->type = 'n';
+    new->next = (*head_ref);
+    (*head_ref) = new;
+}
+
+
+void    push_dirs(t_c_list **head_ref, char *str)
+{
+    t_c_list    *new;
+
+    new = (t_c_list *)malloc(sizeof(t_c_list));
+    new->dir = (t_dir *)malloc(sizeof(t_dir));
+    new->dir->name = ft_strdup(str);
+    new->next = (*head_ref);
+    (*head_ref) = new;
+}
+
 /*
 this is my prototype for my recursive function for -R
 
@@ -66,110 +119,87 @@ this is my prototype for my recursive function for -R
 
 */
 
-void   sort_data(t_c_list *head)
+
+void    recurse(char *directory)
 {
-    t_c_list *elem;
-    char *tmp;
-    int i;
-
-    i = 0;
-    elem = head;
-    tmp = NULL;
-    while (elem->next != NULL)
-    {
-        printf("%d = %s\n", i, elem->dir->name);
-        if (elem->next->dir != NULL)
-        {
-<<<<<<< HEAD
-            if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
-=======
-            if (elem->dir->name[0] == elem->next->dir->name[0])
-                {
-                    if (ft_strcmp(elem->dir->name, elem->next->dir->name) > 0)
-                    {
-                        tmp = elem->dir->name;
-                        elem->dir->name = elem->next->dir->name;
-                        elem->next->dir->name = tmp;
-						elem = head;
-                    }
-                }
-            else if (elem->dir->name[0] > elem->next->dir->name[0])
->>>>>>> 3f2a239517f7ec6d74dd7a3285063c25f81afc06
-            {
-                tmp = elem->dir->name;
-                elem->dir->name = elem->next->dir->name;
-                elem->next->dir->name = tmp;
-				elem = head;
-<<<<<<< HEAD
-                printf("hello %s\n", elem->dir->name);
-=======
->>>>>>> 3f2a239517f7ec6d74dd7a3285063c25f81afc06
-            }
-        }
-        elem = elem->next;
-        i++;
-    }
-<<<<<<< HEAD
-
-=======
->>>>>>> 3f2a239517f7ec6d74dd7a3285063c25f81afc06
-       while (head->next != NULL)
-    {
-        printf("%s\n", head->dir->name);
-        free(head->dir->name);
-        free(head->dir);
-        free(head);
-        head = head->next;
-    }
-    free(head);
-<<<<<<< HEAD
+    DIR *dir;
+    struct dirent *sd;
+    struct stat buf;
+    t_c_list  *c_list;
+    t_c_list  *dirs;
     
-=======
->>>>>>> 3f2a239517f7ec6d74dd7a3285063c25f81afc06
+    dir = opendir(directory);
+    c_list = NULL;
+    dirs = NULL;
+    while ((sd = readdir(dir)) != NULL)
+    {
+        if (sd->d_name[0] != '.')
+        {
+            stat(sd->d_name, &buf);
+            push(&c_list, sd->d_name, buf.st_mode);
+        }
+    }
+    closedir(dir);
+    sort_data(&c_list);
+    while(c_list->next != NULL)
+    {
+        ft_putstr(c_list->dir->name);
+        write(1, "\n", 1);
+        if (c_list->dir->type == 'a')
+            push_dirs(&dirs, c_list->dir->name);
+        free(c_list->dir->name);
+        free(c_list->dir);
+        c_list = c_list->next;
+    }
+    if (dirs != NULL)
+    {
+        while (dirs->next)
+        {
+            recurse(dirs->dir->name);
+            dirs = dirs->next;
+        }
+    }
 }
+
 
 
 void    big_r_flag()
 {
     DIR *dir;
     struct dirent *sd;
-    t_c_list  *head;
+    struct stat buf;
     t_c_list  *c_list;
+    t_c_list  *dirs;
     
     dir = opendir(".");
-    c_list = malloc(sizeof(t_c_list *));
-    head = c_list;
+    c_list = NULL;
+    dirs = NULL;
     while ((sd = readdir(dir)) != NULL)
     {
         if (sd->d_name[0] != '.')
         {
-            c_list->dir = malloc(sizeof(t_dir));
-            c_list->dir->name = ft_strdup(sd->d_name);
-            c_list->next = malloc(sizeof(t_c_list *)); 
-            c_list = c_list->next;
-            c_list->dir = NULL;
+            stat(sd->d_name, &buf);
+            push(&c_list, sd->d_name, buf.st_mode);
         }
     }
-    c_list = NULL;
-    sort_data(head);
-
-
-
-/*
-    //this while loop iterates through the linked list and displays its contents
-    //used for reference.
-    printf("this is the unsorted below\n\n");
-    while (head->next != NULL)
-    {
-        printf("directory ./%s\n", head->dir->name);
-        free(head->dir->name);
-        free(head->dir);
-        free(head);
-        head = head->next;
-    }
-    free(head);
-*/
     closedir(dir);
+    sort_data(&c_list);
+    while(c_list->next != NULL)
+    {
+        ft_putstr(c_list->dir->name);
+        write(1, "\n", 1);
+        if (c_list->dir->type == 'a')
+            push_dirs(&dirs, c_list->dir->name);
+        free(c_list->dir->name);
+        free(c_list->dir);
+        c_list = c_list->next;
+    }
+    if (dirs != NULL)
+    while (dirs->next)
+    {
+        recurse(dirs->dir->name);
+        dirs = dirs->next;
+    }
 }
 
 

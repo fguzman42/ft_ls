@@ -71,6 +71,7 @@ typedef struct s_dir
 {
     DIR     *dir;
     char    *name;
+    char    type;
 }              t_dir;
 
 typedef struct s_c_list
@@ -85,4 +86,8 @@ typedef struct s_sys
 
 }              t_sys;
 
+
+t_c_list    *sortedmerge(t_c_list *a, t_c_list *b); 
+void frontbacksplit(t_c_list *source, t_c_list **frontref, t_c_list **backref); 
+void    sort_data(t_c_list **headRef);
 #endif
