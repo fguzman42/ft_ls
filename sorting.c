@@ -54,7 +54,7 @@ t_c_list    *sortedmerge(t_c_list *a, t_c_list *b)
         return (b);
     else if (b == NULL)
         return (a);
-    if (ft_strcmp(a->dir->name, b->dir->name) < 0)
+    if (ft_strcmp(a->dir->name, b->dir->name) <= 0)
     {
         result = a;
         result->next = sortedmerge(a->next, b);
@@ -74,7 +74,7 @@ void    sort_data(t_c_list **headref)
     t_c_list    *b;
   
     head = *headref;
-    if ((head == NULL) || head->next == NULL)
+    if ((head == NULL) || (head->next == NULL))
         return;
     frontbacksplit(head, &a, &b);
     sort_data(&a);
