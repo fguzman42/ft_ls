@@ -90,4 +90,8 @@ typedef struct s_sys
 t_c_list    *sortedmerge(t_c_list *a, t_c_list *b); 
 void frontbacksplit(t_c_list *source, t_c_list **frontref, t_c_list **backref); 
 void    sort_data(t_c_list **headRef);
+void    recurse(char *directory);
+void    big_r_flag();
+void    push(t_c_list **head_ref, char *str, int type);
+void    push_dirs(t_c_list **head_ref, char *str);
 #endif

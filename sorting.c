@@ -10,18 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-// C code for linked list merged sort 
-#include "./ft_ls.h"
-  
-  
-/* function prototypes 
-struct Node* SortedMerge(struct Node* a, struct Node* b); 
-void FrontBackSplit(struct Node* source, 
-                    struct Node** frontRef, struct Node** backRef); 
- sorts the linked list by changing next pointers (not data) */
+#include "ft_ls.h"
 
 
+void    push(t_c_list **head_ref, char *str, int type)
+{
+    t_c_list    *new;
+
+    new = (t_c_list *)malloc(sizeof(t_c_list));
+    new->dir = (t_dir *)malloc(sizeof(t_dir));
+    new->dir->name = ft_strdup(str);
+    if (type == 16877)
+        new->dir->type = 'a';
+    else
+        new->dir->type = 'n';
+    new->next = (*head_ref);
+    (*head_ref) = new;
+}
+
+
+void    push_dirs(t_c_list **head_ref, char *str)
+{
+    t_c_list    *new;
+
+    new = (t_c_list *)malloc(sizeof(t_c_list));
+    new->dir = (t_dir *)malloc(sizeof(t_dir));
+    new->dir->name = ft_strdup(str);
+    new->next = (*head_ref);
+    (*head_ref) = new;
+}
 
 
 void        frontbacksplit(t_c_list *source, t_c_list **frontref, t_c_list **backref)
