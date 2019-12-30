@@ -60,12 +60,21 @@ in order to interpret the information returned by stat!
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "./libft/libft.h"
-# define L_FLAG 0x1
-# define A_FLAG 0x2
-# define R_FLAG 0x4
-# define r_FLAG 0x8
+# define L_FLAG 1
+# define A_FLAG 2
+# define R_FLAG 4
+# define LIL_R_FLAG 8
+# define T_FLAG 16
 // define the rest of the flags
 
+typedef	struct	s_flags
+{
+	int		l;
+	int		a;
+	int		r;
+	int		t;
+	int		ur;
+}				t_flags;
 
 typedef struct s_dir
 {
@@ -88,10 +97,16 @@ typedef struct s_sys
 
 
 t_c_list    *sortedmerge(t_c_list *a, t_c_list *b); 
-void frontbacksplit(t_c_list *source, t_c_list **frontref, t_c_list **backref); 
-void    sort_data(t_c_list **headRef);
-void    recurse(char *directory);
-void    big_r_flag();
-void    push(t_c_list **head_ref, char *str, int type);
-void    push_dirs(t_c_list **head_ref, char *str);
+void	frontbacksplit(t_c_list *source, t_c_list **frontref, t_c_list **backref); 
+void	sort_data(t_c_list **headRef);
+void	recurse(char *directory);
+void	big_r_flag();
+void	r_push(t_c_list **head_ref, char *str, int type);
+void	r_push_dirs(t_c_list **head_ref, char *str);
+void	no_flag(char *directory);
+void	a_flag();
+void	get_flag(char *argv);
+void    ls_push(t_c_list **head_ref, char *str);
+void	do_ls(char *directory);
+void	parse_flags(int argc, char **argv);
 #endif

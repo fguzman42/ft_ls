@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 
 
-void    push(t_c_list **head_ref, char *str, int type)
+void    r_push(t_c_list **head_ref, char *str, int type)
 {
     t_c_list    *new;
 
@@ -28,8 +28,18 @@ void    push(t_c_list **head_ref, char *str, int type)
     (*head_ref) = new;
 }
 
+void    ls_push(t_c_list **head_ref, char *str)
+{
+    t_c_list    *new;
 
-void    push_dirs(t_c_list **head_ref, char *str)
+    new = (t_c_list *)malloc(sizeof(t_c_list));
+    new->dir = (t_dir *)malloc(sizeof(t_dir));
+    new->dir->name = ft_strdup(str);
+    new->next = (*head_ref);
+    (*head_ref) = new;
+}
+
+void    r_push_dirs(t_c_list **head_ref, char *str)
 {
     t_c_list    *new;
 

@@ -1,6 +1,6 @@
 NAME := ft_ls
 
-SRC := ft_ls.c sorting.c dash_r.c
+SRC := ft_ls.c sorting.c dash_r.c check_flags.c
 
 SRCDIR := ./srcs
 
