@@ -34,18 +34,13 @@ void	do_ls(char *directory)
 		}
 		closedir(dir);
 		sort_data(&c_list);
-		while(c_list != NULL)
-		{
-			ft_putstr(c_list->dir->name);
-			write(1, "\n", 1);
-			c_list = c_list->next;
-		}
+		print_list(c_list);
+
 	}
 }	
 
 void	check_flags(int argc, char **argv)
 {
-	(void)argv;
 	if (argc == 1)
 		do_ls(".");
 	if (argc >= 2)

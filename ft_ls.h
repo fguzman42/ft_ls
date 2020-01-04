@@ -67,6 +67,7 @@ in order to interpret the information returned by stat!
 # define T_FLAG 16
 // define the rest of the flags
 
+
 typedef	struct	s_flags
 {
 	int		l;
@@ -74,6 +75,7 @@ typedef	struct	s_flags
 	int		r;
 	int		t;
 	int		ur;
+    int     exec;
 }				t_flags;
 
 typedef struct s_dir
@@ -99,7 +101,7 @@ typedef struct s_sys
 t_c_list    *sortedmerge(t_c_list *a, t_c_list *b); 
 void	frontbacksplit(t_c_list *source, t_c_list **frontref, t_c_list **backref); 
 void	sort_data(t_c_list **headRef);
-void	recurse(char *directory);
+void	recurse(char *directory, int *exec);
 void	big_r_flag();
 void	r_push(t_c_list **head_ref, char *str, int type);
 void	r_push_dirs(t_c_list **head_ref, char *str);
@@ -109,4 +111,6 @@ void	get_flag(char *argv);
 void    ls_push(t_c_list **head_ref, char *str);
 void	do_ls(char *directory);
 void	parse_flags(int argc, char **argv);
+void	print_list(t_c_list *head);
+void	find_flags(t_flags *flags, char *argv);
 #endif

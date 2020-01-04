@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void    recurse(char *directory)
+void    recurse(char *directory, int *exec)
 {
     DIR *dir;
     struct dirent *sd;
@@ -25,9 +25,14 @@ void    recurse(char *directory)
     dirs = NULL;
     while ((sd = readdir(dir)) != NULL)
     {
-        if (sd->d_name[0] != '.')
+		if (*exec == 10)
         {
-            stat(sd->d_name, &buf);
+			lstat(sd->d_name, &buf);
+			r_push(&c_list, sd->d_name, buf.st_mode);
+        }
+        else if (sd->d_name[0] != '.')
+        {
+            lstat(sd->d_name, &buf);
             r_push(&c_list, sd->d_name, buf.st_mode);
         }
     }
@@ -47,14 +52,14 @@ void    recurse(char *directory)
     {
         while (dirs->next)
         {
-            recurse(dirs->dir->name);
+            recurse(dirs->dir->name, exec);
             dirs = dirs->next;
         }
     }
 }
 
 
-void    big_r_flag()
+void    big_r_flag(int exec)
 {
     DIR *dir;
     struct dirent *sd;
@@ -67,7 +72,12 @@ void    big_r_flag()
     dirs = NULL;
     while ((sd = readdir(dir)) != NULL)
     {
-        if (sd->d_name[0] != '.')
+        if (exec == 10)
+        {
+			lstat(sd->d_name, &buf);
+			r_push(&c_list, sd->d_name, buf.st_mode);
+        }
+        else if (sd->d_name[0] != '.')
         {
             lstat(sd->d_name, &buf);
             r_push(&c_list, sd->d_name, buf.st_mode);
@@ -89,7 +99,7 @@ void    big_r_flag()
         while (dirs != NULL)
         {
             printf("we will now be printing the contents of the directory: %s\n", dirs->dir->name);
-            recurse(dirs->dir->name);
+            recurse(dirs->dir->name, &exec);
             dirs = dirs->next;
         }
     }

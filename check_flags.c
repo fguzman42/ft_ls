@@ -38,67 +38,110 @@ void	init_flags(t_flags *flags)
 	flags->t = 0;
 }
 
-void	mark_flags(t_flags *flags, char flag)
+void	print_list(t_c_list *head)
 {
-	if (flag == 'l')
-		flags->l = 1;
-	else if (flag == 'a')
-		flags->a = 1;
-	else if (flag == 'r')
-		flags->r = 1;
-	else if (flag == 'R')
-		flags->ur = 1;
-	else if (flag == 't')
-		flags->t = 1;
+	while (head != NULL)
+	{
+		ft_putstr(head->dir->name);
+		ft_putstr("\n");
+		free(head->dir->name);
+		free(head->dir);
+		head = head->next;
+	}
+	free(head);
 }
 
-void	find_flags(t_flags *flags, char *argv)
+void	print_list_error(t_c_list *head)
+{
+	while (head != NULL)
+	{
+		ft_putstr(head->dir->name);
+		ft_putstr(": is not a directory\n");
+		free(head->dir->name);
+		free(head->dir);
+		head = head->next;
+	}
+	free(head);
+}
+
+void	f_sorted_and_listed(t_c_list *head, char **argv)
 {
 	int i;
 
-	i = 0;
-	if (argv[i] == '-')
-		{
-			i++;
-			while (argv[i])
-			{
-				if (argv[i] == 'l' || argv[i] == 'a' ||
-				argv[i] == 'r' || argv[i] == 'R' || argv[i] == 't')
-					mark_flags(flags, argv[i]);
-				else
-					ft_puterror("no flag found\n", 0);
-				i++;
-			}
-			//handle_flags(&flags);
-		}
+	i = 1;
+	DIR *dir;
+		while (argv[i])
+	{
+		dir = opendir(argv[i]);
+		if (dir == NULL)
+			ls_push(&head, argv[i]);
 		else
-			do_ls(argv);
+			closedir(dir);
+		i++;
+	}
+	sort_data(&head);
+	print_list_error(head);
 }
+
+void	d_sorted_and_listed(t_c_list *head, char **argv)
+{
+	int i;
+
+	i = 1;
+	DIR *dir;
+		while (argv[i])
+	{
+		dir = opendir(argv[i]);
+		if (dir != NULL)
+		{
+			ls_push(&head, argv[i]);
+			closedir(dir);
+		}
+		i++;
+	}
+	sort_data(&head);
+	while (head != NULL)
+	{
+		ft_putstr(head->dir->name);
+		ft_putstr(":\n");
+		do_ls(head->dir->name);
+		if (head->next != NULL)
+			ft_putstr("\n");
+		head = head->next;
+	}
+}
+
+void	list_args(char **argv)
+{
+	int i;
+	t_c_list *head;
+
+	head = NULL;
+	i = 1;
+	f_sorted_and_listed(head, argv);
+	d_sorted_and_listed(head, argv);
+}
+
 
 void	parse_flags(int argc, char **argv)
 {
 	int i;
 	t_flags flags;
+	t_c_list	*head;
 
 	i = 1;
-
+	head = NULL;
 	init_flags(&flags);
 	if (argc == 2)
 		find_flags(&flags, argv[1]);
 	else if (argc > 2)
 	{
-		if (argv[1][0] != '-')
-		{
-			while (argv[i])
-			{
-				if (argv[i][0] == '-')
-					do_ls(argv[i]);
-				i++;
-			}
-		}
-
+			list_args(argv);
+		/*if (argv[1][0] == '-')
+			function_that_checks_for_flags(flags);
+		else
+			list_args(argv);*/
 	}
-
 }  
 
 void	get_flag(char *argv)
