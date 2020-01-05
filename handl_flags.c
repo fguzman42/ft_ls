@@ -12,6 +12,9 @@
 
 #include "ft_ls.h"
 
+
+
+
 void	mark_flags(t_flags *flags, char flag)
 {
 	if (flag == 'a')
@@ -34,7 +37,7 @@ void    handle_flags(t_flags *flag)
 	if (flag->a == 1)
 		{
 			if (exec == 1)
-			//do -a
+			
 			if (exec == 3)
 			//do -al
 			if (exec == 5)
@@ -50,8 +53,56 @@ void    handle_flags(t_flags *flag)
 			if (exec == 15)
 			//do -alrR
 			if (exec == 17)
-
+			//do -at
+			if (exec == 19)
+			//do -alt
+			if (exec == 21)
+			//do -art
+			if (exec == 23)
+			//do -alrt
+			if (exec == 25)
+			//do -aRt
+			if (exec == 27)
+			//do -alRt
+			if (exec == 29)
+			//do -arRt
+			if (exec == 31)
+			//do -alrRt
 		}
+		if (flag->l == 1)
+		{
+			if (exec == 2)
+			//do -l
+			if (exec == 4)
+			//do -r
+			if (exec == 6)
+			//do -lr
+			if (exec == 8)
+			//do -R
+			if (exec == 10)
+			//do -lR
+			if (exec == 12)
+			//do -rR
+			if (exec == 14)
+			//do -lrR
+			if (exec == 16)	
+			//do -t
+			if (exec == 18)
+			//do -lt
+			if (exec == 20)
+			//do -rt
+			if (exec == 22)
+			//do -lrt
+			if (exec == 24)
+			//do -Rt
+			if (exec == 26)
+			//do -lRt
+			if (exec == 28)
+			//do -rRt
+			if (exec == 30)
+			//do -lrRt
+		}
+
 
 }
 
