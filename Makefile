@@ -1,6 +1,6 @@
 NAME := ft_ls
 
-SRC := ft_ls.c sorting.c dash_r.c check_flags.c handl_flags.c
+SRC := ft_ls.c sorting.c dash_r.c check_flags.c handl_flags.c dash_l.c
 
 SRCDIR := ./srcs
 
@@ -42,4 +42,3 @@ fclean: clean
 		rm -f $(NAME)
 
 re: fclean all
-

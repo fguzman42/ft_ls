@@ -78,6 +78,16 @@ typedef	struct	s_flags
     int     exec;
 }				t_flags;
 
+typedef struct  s_l
+{
+    char    *list;
+    char    *links;
+    char    *owner_name;
+    char    *group_name;
+    char    *byte_size;
+    char    *time;
+}               t_l;
+
 typedef struct s_dir
 {
     DIR     *dir;
@@ -88,6 +98,7 @@ typedef struct s_dir
 typedef struct s_c_list
 {
     t_dir  *dir;
+    t_l     *list;
     struct s_c_list *next;
 }              t_c_list;
 
@@ -108,8 +119,8 @@ void	r_push_dirs(t_c_list **head_ref, char *str);
 void	no_flag(char *directory);
 void	a_flag();
 void	get_flag(char *argv);
-void    ls_push(t_c_list **head_ref, char *str);
-void	do_ls(char *directory);
+void    ls_push(t_c_list **head_ref, struct dirent *sd, int exec);
+void	do_ls(char *directory, int exec);
 void	parse_flags(int argc, char **argv);
 void	print_list(t_c_list *head);
 void	find_flags(t_flags *flags, char *argv);

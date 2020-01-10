@@ -31,15 +31,21 @@ void	mark_flags(t_flags *flags, char flag)
 
 void    handle_flags(t_flags *flag)
 {
-    int exec;
 
-    exec = flag->a + flag->l + flag->t + flag->r + flag->ur;
-	if (flag->a == 1)
+	if (flag->l == true)
+		
+//    int exec;
+
+    //exec = flag->a + flag->l + flag->t + flag->r + flag->ur;
+/*	if (flag->a == 1)
 		{
 			if (exec == 1)
-			
+				do_ls(".", exec);
 			if (exec == 3)
 			//do -al
+				do_ls(".", 3);
+		}
+			
 			if (exec == 5)
 			//do -ar
 			if (exec == 7)
@@ -102,7 +108,7 @@ void    handle_flags(t_flags *flag)
 			if (exec == 30)
 			//do -lrRt
 		}
-
+*/
 
 }
 
@@ -126,5 +132,5 @@ void	find_flags(t_flags *flags, char *argv)
 			handle_flags(flags);
 		}
 	else
-		do_ls(argv);
+		do_ls(argv, 0);
 }

@@ -12,7 +12,7 @@
 
 #include "./ft_ls.h"
 
-void	do_ls(char *directory)
+void	do_ls(char *directory, int exec)
 {
 	DIR *dir;
 	struct dirent *sd;
@@ -29,8 +29,10 @@ void	do_ls(char *directory)
 	{
 		while ((sd = readdir(dir)) != NULL)
 		{
-			if (sd->d_name[0] != '.')
-			ls_push(&c_list, sd->d_name);
+			if (exec == 1)
+				ls_push(&c_list, sd->d_name);
+			else if (sd->d_name[0] != '.')
+				ls_push(&c_list, sd->d_name);
 		}
 		closedir(dir);
 		sort_data(&c_list);
@@ -42,7 +44,7 @@ void	do_ls(char *directory)
 void	check_flags(int argc, char **argv)
 {
 	if (argc == 1)
-		do_ls(".");
+		do_ls(".", 0);
 	if (argc >= 2)
 		parse_flags(argc, argv);
 }

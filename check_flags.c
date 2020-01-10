@@ -104,7 +104,7 @@ void	d_sorted_and_listed(t_c_list *head, char **argv)
 	{
 		ft_putstr(head->dir->name);
 		ft_putstr(":\n");
-		do_ls(head->dir->name);
+		do_ls(head->dir->name, 0);
 		if (head->next != NULL)
 			ft_putstr("\n");
 		head = head->next;
