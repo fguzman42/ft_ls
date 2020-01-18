@@ -60,6 +60,9 @@ in order to interpret the information returned by stat!
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "./libft/libft.h"
+#include <pwd.h>
+#include <grp.h>
+#include <time.h>
 # define L_FLAG 1
 # define A_FLAG 2
 # define R_FLAG 4
@@ -80,13 +83,14 @@ typedef	struct	s_flags
 
 typedef struct  s_l
 {
-    char    *list;
-    char    *links;
+    char    *rights;
+    int     links;
     char    *owner_name;
     char    *group_name;
-    char    *byte_size;
+    int     byte_size;
     char    *time;
 }               t_l;
+ 
 
 typedef struct s_dir
 {
@@ -112,16 +116,18 @@ typedef struct s_sys
 t_c_list    *sortedmerge(t_c_list *a, t_c_list *b); 
 void	frontbacksplit(t_c_list *source, t_c_list **frontref, t_c_list **backref); 
 void	sort_data(t_c_list **headRef);
-void	recurse(char *directory, int *exec);
+void	recurse(char *directory);
 void	big_r_flag();
 void	r_push(t_c_list **head_ref, char *str, int type);
 void	r_push_dirs(t_c_list **head_ref, char *str);
 void	no_flag(char *directory);
 void	a_flag();
 void	get_flag(char *argv);
-void    ls_push(t_c_list **head_ref, struct dirent *sd, int exec);
-void	do_ls(char *directory, int exec);
+void    ls_push(t_c_list **head_ref, char *str);
+void	do_ls(char *directory);
 void	parse_flags(int argc, char **argv);
 void	print_list(t_c_list *head);
 void	find_flags(t_flags *flags, char *argv);
+void	do_l(char *directory);
+
 #endif

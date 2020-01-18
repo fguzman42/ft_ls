@@ -20,24 +20,23 @@ void	mark_flags(t_flags *flags, char flag)
 	if (flag == 'a')
 		flags->a = 1;
 	else if (flag == 'l')
-		flags->l = 2;
+		flags->l = 1;
 	else if (flag == 'r')
-		flags->r = 4;
+		flags->r = 1;
 	else if (flag == 'R')
-		flags->ur = 8;
+		flags->ur = 1;
 	else if (flag == 't')
-		flags->t = 16;
+		flags->t = 1;
 }
 
+/*
 void    handle_flags(t_flags *flag)
 {
-
-	if (flag->l == true)
-		
-//    int exec;
+	//
+//	    int exec;
 
     //exec = flag->a + flag->l + flag->t + flag->r + flag->ur;
-/*	if (flag->a == 1)
+	if (flag->a == 1)
 		{
 			if (exec == 1)
 				do_ls(".", exec);
@@ -108,9 +107,12 @@ void    handle_flags(t_flags *flag)
 			if (exec == 30)
 			//do -lrRt
 		}
-*/
+
 
 }
+*/
+
+
 
 void	find_flags(t_flags *flags, char *argv)
 {
@@ -129,8 +131,10 @@ void	find_flags(t_flags *flags, char *argv)
 					ft_puterror("no flag found\n", 0);
 				i++;
 			}
-			handle_flags(flags);
+			if (flags->l == 1)
+				do_l(".");
+			//handle_flags(flags);
 		}
 	else
-		do_ls(argv, 0);
+		do_ls(argv);
 }

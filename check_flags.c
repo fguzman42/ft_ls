@@ -83,7 +83,7 @@ void	f_sorted_and_listed(t_c_list *head, char **argv)
 	print_list_error(head);
 }
 
-void	d_sorted_and_listed(t_c_list *head, char **argv)
+/*void	d_sorted_and_listed(t_c_list *head, char **argv)
 {
 	int i;
 
@@ -94,7 +94,7 @@ void	d_sorted_and_listed(t_c_list *head, char **argv)
 		dir = opendir(argv[i]);
 		if (dir != NULL)
 		{
-			ls_push(&head, argv[i]);
+			ls_push(&head, );
 			closedir(dir);
 		}
 		i++;
@@ -104,7 +104,7 @@ void	d_sorted_and_listed(t_c_list *head, char **argv)
 	{
 		ft_putstr(head->dir->name);
 		ft_putstr(":\n");
-		do_ls(head->dir->name, 0);
+		do_ls(head->dir->name);
 		if (head->next != NULL)
 			ft_putstr("\n");
 		head = head->next;
@@ -121,7 +121,7 @@ void	list_args(char **argv)
 	f_sorted_and_listed(head, argv);
 	d_sorted_and_listed(head, argv);
 }
-
+*/
 
 void	parse_flags(int argc, char **argv)
 {
@@ -136,7 +136,8 @@ void	parse_flags(int argc, char **argv)
 		find_flags(&flags, argv[1]);
 	else if (argc > 2)
 	{
-			list_args(argv);
+		printf("hello");
+			//list_args(argv);
 		/*if (argv[1][0] == '-')
 			function_that_checks_for_flags(flags);
 		else

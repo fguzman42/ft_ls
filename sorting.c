@@ -31,33 +31,26 @@ void    r_push(t_c_list **head_ref, char *str, int type)
 
 void	init_list(t_l *list)
 {
-	list->byte_size = NULL;
+	list->byte_size = 0;
 	list->group_name = NULL;
-	list->links = NULL;
-	list->list = NULL;
+	list->links = 0;
+	//list->list = NULL;
 	list->owner_name = NULL;
 	list->time = NULL;
 }
 
-char	*make_list(sd)
-{
-	
-}
 
-void    ls_push(t_c_list **head_ref, struct dirent *sd, int exec)
+void    ls_push(t_c_list **head_ref, char *str)
 {
     t_c_list    *new;
 
     new = (t_c_list *)malloc(sizeof(t_c_list));
     new->dir = (t_dir *)malloc(sizeof(t_dir));
-    new->dir->name = ft_strdup(sd->d_name);
-	if(exec == 3)
-	{
-		new->list = malloc(sizeof(t_l));
-		new->list = NULL;
-		init_list(&new->list);
-		new->list->list = make_list(sd);
-	}
+    new->dir->name = ft_strdup(str);
+	new->list = malloc(sizeof(t_l));
+	new->list = NULL;
+	//init_list(new->list);
+	//new->list->list = make_list(sd);
     new->next = (*head_ref);
     (*head_ref) = new;
 }
